@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terrain — Co-Founder Alignment Document</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Instrument+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f0e0c;
+  --deep: #1c1a16;
+  --warm: #2a2620;
+  --earth: #4a4238;
+  --stone: #7a6e62;
+  --sand: #c4b49a;
+  --linen: #ede8df;
+  --paper: #f7f4ef;
+  --white: #fdfcfa;
+  --gold: #b8965a;
+  --gold-light: #d4ae78;
+  --green: #3d5240;
+  --green-light: #5a7560;
+  --accent: #8c6d3f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 18px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(247,244,239,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,150,90,0.12);
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 400; letter-spacing: .12em;
+  color: var(--ink); text-transform: uppercase;
+}
+.logo sup { color: var(--gold); font-size: 9px; vertical-align: super; }
+.nav-right { display: flex; gap: 28px; align-items: center; }
+.nav-label { font-size: 9px; letter-spacing: .25em; color: var(--stone); text-transform: uppercase; }
+.nav-badge {
+  font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  border: 1px solid rgba(184,150,90,.4); color: var(--gold);
+  padding: 6px 16px;
+}
+
+/* ── SHARED ── */
+.section { padding: 120px 0; position: relative; overflow: hidden; }
+.container { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+
+.eyebrow {
+  font-size: 9px; letter-spacing: .45em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 14px;
+}
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.eyebrow-lt { color: rgba(184,150,90,.7); }
+.eyebrow-lt::before { background: rgba(184,150,90,.7); }
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1.05; }
+.body { font-size: 14px; line-height: 1.85; color: var(--earth); font-weight: 300; }
+.body + .body { margin-top: 14px; }
+.body-lt { color: rgba(237,232,223,.7); }
+.rule { width: 100%; height: 1px; background: linear-gradient(to right, var(--gold), rgba(184,150,90,.08)); margin: 40px 0; }
+.rule-lt { background: linear-gradient(to right, rgba(184,150,90,.4), rgba(184,150,90,.04)); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.on { opacity: 1; transform: none; }
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none} }
+@keyframes pulse { 0%,100%{opacity:.35}50%{opacity:1} }
+
+/* ── COVER ── */
+#cover {
+  min-height: 100vh; background: var(--deep);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; flex-direction: column; position: relative; overflow: hidden;
+}
+.cover-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(184,150,90,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,150,90,.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.cover-glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 60%, rgba(61,82,64,.3) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 35% at 20% 20%, rgba(184,150,90,.06) 0%, transparent 55%);
+}
+.cover-content { position: relative; z-index: 2; padding: 40px 20px; max-width: 860px; }
+.cover-eyebrow {
+  font-size: 9px; letter-spacing: .5em; text-transform: uppercase;
+  color: var(--sand); opacity: 0;
+  animation: fadeUp .7s ease .4s forwards; margin-bottom: 28px;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(72px, 12vw, 128px); font-weight: 400;
+  color: var(--white); line-height: .92;
+  opacity: 0; animation: fadeUp .8s ease .6s forwards;
+  margin-bottom: 8px;
+}
+.cover-title em { font-style: italic; color: var(--gold-light); }
+.cover-sub {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(16px, 2.2vw, 22px); font-style: italic;
+  color: var(--sand);
+  opacity: 0; animation: fadeUp .8s ease .85s forwards;
+  margin-top: 20px; margin-bottom: 52px;
+}
+.cover-chips {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp .7s ease 1.05s forwards;
+  margin-bottom: 72px;
+}
+.chip {
+  border: 1px solid rgba(184,150,90,.3);
+  padding: 7px 18px;
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--sand);
+}
+.cover-kpis {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  max-width: 720px; margin: 0 auto;
+  opacity: 0; animation: fadeUp .7s ease 1.2s forwards;
+}
+.cover-kpi { background: rgba(255,255,255,.04); padding: 28px 24px; }
+.cover-kpi-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px; color: var(--gold-light); line-height: 1; margin-bottom: 6px;
+}
+.cover-kpi-l { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(196,180,154,.45); line-height: 1.5; }
+.scroll-signal {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-size: 8px; letter-spacing: .4em; color: var(--stone); text-transform: uppercase;
+  opacity: 0; animation: fadeUp .7s ease 1.5s forwards;
+}
+.scroll-bar { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold), transparent); animation: pulse 2.2s ease infinite; }
+
+/* ── HOW TO USE ── */
+#howto { background: var(--linen); padding: 72px 0; }
+.howto-inner {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: center;
+}
+.howto-title { font-size: clamp(28px, 3.5vw, 42px); color: var(--ink); }
+.howto-title em { font-style: italic; color: var(--gold); }
+.howto-body { font-size: 13px; line-height: 1.85; color: var(--earth); }
+.howto-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.tag {
+  font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  border: 1px solid rgba(184,150,90,.3); color: var(--gold);
+  padding: 5px 12px;
+}
+.tag.green { border-color: rgba(90,117,96,.35); color: var(--green-light); }
+.tag.muted { border-color: rgba(122,110,98,.25); color: var(--stone); }
+
+/* ── SECTION: VISION ── */
+#vision { background: var(--paper); }
+.vision-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
+.vision-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--ink); margin-bottom: 24px; }
+.vision-title em { font-style: italic; color: var(--gold); }
+.vision-quote {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: clamp(20px, 2.8vw, 30px); font-weight: 400;
+  color: var(--ink); line-height: 1.45;
+  border-left: 2px solid var(--gold);
+  padding: 20px 0 20px 28px;
+  margin-bottom: 24px;
+}
+.vision-stack { display: flex; flex-direction: column; gap: 2px; }
+.vision-card { background: var(--deep); padding: 28px 32px; }
+.vision-card-label { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.vision-card-text { font-size: 13px; line-height: 1.8; color: rgba(237,232,223,.65); }
+.vision-card-text strong { color: var(--white); font-weight: 500; }
+
+/* ── SECTION: PROBLEM ── */
+#problem { background: var(--paper); padding-top: 0; }
+.problem-inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 96px; align-items: center; }
+.problem-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--ink); margin-bottom: 28px; }
+.problem-title em { font-style: italic; color: var(--gold); }
+.pain-stack { display: flex; flex-direction: column; gap: 0; }
+.pain {
+  padding: 20px 0; border-bottom: 1px solid rgba(74,66,56,.12);
+  display: grid; grid-template-columns: 28px 1fr; gap: 16px; align-items: start;
+}
+.pain:last-child { border-bottom: none; }
+.pain-num { font-size: 10px; color: var(--gold); letter-spacing: .1em; padding-top: 2px; }
+.pain-text { font-size: 13px; line-height: 1.75; color: var(--earth); }
+.pain-text strong { color: var(--ink); font-weight: 500; }
+.cost-box {
+  background: var(--deep); padding: 40px 36px; margin-top: 40px;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+}
+.cost-box-label { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: rgba(184,150,90,.6); margin-bottom: 10px; }
+.cost-box-text { font-size: 13px; line-height: 1.75; color: rgba(237,232,223,.6); }
+.cost-box-text strong { color: var(--white); }
+.cost-box-n { font-family: 'Playfair Display', serif; font-size: 52px; color: var(--gold-light); text-align: center; white-space: nowrap; }
+.cost-box-nl { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(196,180,154,.4); text-align: center; margin-top: 4px; }
+
+/* ── SECTION: HOOKS ── */
+#hooks { background: var(--green); }
+.hooks-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--white); margin-bottom: 12px; }
+.hooks-title em { font-style: italic; color: var(--gold-light); }
+.hooks-sub { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: var(--sand); margin-bottom: 56px; }
+.hook-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.hook-card { background: rgba(0,0,0,.2); padding: 36px 32px; }
+.hook-n { font-family: 'Playfair Display', serif; font-size: 64px; color: rgba(184,150,90,.12); line-height: 1; margin-bottom: 16px; }
+.hook-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); margin-bottom: 12px; }
+.hook-body { font-size: 12px; line-height: 1.8; color: rgba(237,232,223,.55); }
+
+/* ── SECTION: BUSINESS MODEL ── */
+#model { background: var(--paper); }
+.model-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--ink); margin-bottom: 16px; }
+.model-title em { font-style: italic; color: var(--gold); }
+.model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; }
+.model-card { background: var(--deep); padding: 36px 32px; }
+.model-card-eyebrow { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.model-card-title { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--white); margin-bottom: 14px; }
+.model-card-body { font-size: 12px; line-height: 1.8; color: rgba(237,232,223,.55); }
+.model-card-body strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 6px; }
+.model-highlight {
+  margin-top: 2px; background: rgba(184,150,90,.08);
+  border: 1px solid rgba(184,150,90,.2); padding: 28px 32px;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+}
+.model-highlight-text { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 17px; color: var(--earth); line-height: 1.6; }
+.model-highlight-n { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--gold); white-space: nowrap; }
+
+/* ── TABLE SHARED ── */
+.t-wrap { margin-top: 32px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead tr { border-bottom: 1px solid rgba(184,150,90,.25); }
+thead th { text-align: left; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); padding: 12px 16px; font-weight: 500; }
+tbody td { padding: 13px 16px; border-bottom: 1px solid rgba(74,66,56,.08); color: var(--earth); line-height: 1.6; vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody td strong { color: var(--ink); font-weight: 500; }
+.t-total td { background: rgba(184,150,90,.06); color: var(--ink) !important; font-weight: 500 !important; border-top: 1px solid rgba(184,150,90,.2) !important; }
+.t-dark thead th { color: rgba(184,150,90,.65); border-bottom-color: rgba(184,150,90,.15); }
+.t-dark tbody td { color: rgba(237,232,223,.6); border-bottom-color: rgba(255,255,255,.06); }
+.t-dark tbody td strong { color: var(--white); }
+.t-dark .t-total td { background: rgba(184,150,90,.08); color: var(--white) !important; }
+
+/* ── SECTION: FINANCIALS ── */
+#financials { background: var(--deep); }
+.fin-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--white); margin-bottom: 16px; }
+.fin-title em { font-style: italic; color: var(--gold-light); }
+.fin-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 48px 0; }
+.fin-kpi { background: rgba(255,255,255,.04); padding: 28px 24px; }
+.fin-kpi-n { font-family: 'Playfair Display', serif; font-size: 38px; color: var(--gold-light); line-height: 1; margin-bottom: 6px; }
+.fin-kpi-l { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(196,180,154,.45); line-height: 1.5; }
+.fin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+.fin-section-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); margin-bottom: 20px; }
+.fin-section-title span { color: var(--gold); }
+
+/* ── SECTION: OWNERSHIP ── */
+#ownership { background: var(--ink); }
+.own-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--white); margin-bottom: 16px; }
+.own-title em { font-style: italic; color: var(--gold-light); }
+.own-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+.own-card { padding: 40px 32px; background: rgba(255,255,255,.03); position: relative; overflow: hidden; }
+.own-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.own-card.tim::before { background: var(--gold); }
+.own-card.kim::before { background: var(--green-light); }
+.own-card.cliffs::before { background: var(--stone); }
+.own-pct { font-family: 'Playfair Display', serif; font-size: 64px; color: var(--gold-light); line-height: 1; margin-bottom: 8px; }
+.own-name { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(196,180,154,.5); margin-bottom: 16px; }
+.own-badge {
+  display: inline-block; font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  border: 1px solid rgba(184,150,90,.3); color: var(--gold);
+  padding: 4px 12px; margin-bottom: 20px;
+}
+.own-badge.non { border-color: rgba(122,110,98,.3); color: var(--stone); }
+.own-exit-n { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--white); margin-bottom: 4px; }
+.own-exit-l { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: rgba(196,180,154,.35); margin-bottom: 16px; }
+.own-desc { font-size: 11px; line-height: 1.75; color: rgba(196,180,154,.45); border-top: 1px solid rgba(255,255,255,.06); padding-top: 16px; margin-top: 4px; }
+.own-note {
+  margin-top: 2px; background: rgba(184,150,90,.06);
+  border: 1px solid rgba(184,150,90,.15); padding: 24px 28px;
+  font-size: 12px; line-height: 1.75; color: rgba(196,180,154,.5);
+}
+.own-note strong { color: rgba(237,232,223,.75); }
+
+/* ── SECTION: COMPENSATION ── */
+#comp { background: var(--deep); }
+.comp-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--white); margin-bottom: 16px; }
+.comp-title em { font-style: italic; color: var(--gold-light); }
+.comp-stack { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+.comp-row {
+  background: rgba(255,255,255,.03); padding: 28px 32px;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  border-left: 3px solid transparent; transition: border-color .25s;
+}
+.comp-row:hover { border-left-color: var(--gold); }
+.comp-row.highlight { background: rgba(184,150,90,.08); border-left-color: var(--gold); }
+.comp-label { font-size: 13px; color: rgba(237,232,223,.6); line-height: 1.65; }
+.comp-label strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 4px; }
+.comp-val { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--gold-light); white-space: nowrap; text-align: right; }
+.comp-note {
+  margin-top: 32px; background: rgba(61,82,64,.2);
+  border: 1px solid rgba(90,117,96,.25); padding: 24px 28px;
+  font-size: 12px; line-height: 1.8; color: rgba(237,232,223,.55);
+}
+.comp-note strong { color: var(--white); }
+
+/* ── SECTION: ROADMAP ── */
+#roadmap { background: var(--linen); }
+.roadmap-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--ink); margin-bottom: 16px; }
+.roadmap-title em { font-style: italic; color: var(--gold); }
+.roadmap-phases { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+.phase {
+  display: grid; grid-template-columns: 200px 1fr; gap: 0;
+  background: var(--deep); overflow: hidden;
+  position: relative;
+}
+.phase::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; }
+.phase.p1::before { background: var(--gold); }
+.phase.p2::before { background: var(--green-light); }
+.phase.p3::before { background: var(--sand); }
+.phase.p4::before { background: var(--gold-light); }
+.phase-left {
+  padding: 32px 28px 32px 36px;
+  border-right: 1px solid rgba(255,255,255,.06);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.phase-period { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.phase-name { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); margin-bottom: 8px; }
+.phase-clients { font-size: 11px; color: rgba(196,180,154,.5); }
+.phase-clients span { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; }
+.phase-right { padding: 32px 36px; }
+.phase-items { display: flex; flex-direction: column; gap: 8px; }
+.phase-item {
+  font-size: 12px; line-height: 1.7; color: rgba(237,232,223,.55);
+  display: grid; grid-template-columns: 16px 1fr; gap: 10px;
+}
+.phase-item::before { content: '◆'; color: var(--gold); font-size: 6px; padding-top: 5px; }
+.phase-item strong { color: var(--white); font-weight: 500; }
+.phase-metrics {
+  display: flex; gap: 24px; margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.06); flex-wrap: wrap;
+}
+.phase-metric-n { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold-light); line-height: 1; }
+.phase-metric-l { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: rgba(196,180,154,.35); margin-top: 3px; }
+.year-table { margin-top: 40px; overflow-x: auto; }
+
+/* ── SECTION: COMMITMENTS ── */
+#commitments { background: var(--paper); }
+.comm-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--ink); margin-bottom: 16px; }
+.comm-title em { font-style: italic; color: var(--gold); }
+.comm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+.comm-card { background: var(--deep); padding: 36px 32px; }
+.comm-who { font-size: 9px; letter-spacing: .4em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.comm-items { display: flex; flex-direction: column; gap: 0; }
+.comm-item {
+  font-size: 12px; line-height: 1.7; color: rgba(237,232,223,.55);
+  padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+  display: grid; grid-template-columns: 16px 1fr; gap: 10px;
+}
+.comm-item:last-child { border-bottom: none; }
+.comm-item::before { content: '◆'; color: var(--gold); font-size: 6px; padding-top: 5px; }
+.comm-note {
+  margin-top: 32px; background: rgba(184,150,90,.05);
+  border: 1px solid rgba(184,150,90,.15); padding: 24px 28px;
+  font-size: 12px; line-height: 1.8; color: var(--earth);
+}
+.comm-note strong { color: var(--ink); }
+
+/* ── SECTION: VALUE ADDS ── */
+#valueadds { background: var(--green); }
+.va-title { font-size: clamp(38px, 5.5vw, 68px); color: var(--white); margin-bottom: 16px; }
+.va-title em { font-style: italic; color: var(--gold-light); }
+.va-sub { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: var(--sand); margin-bottom: 56px; }
+.va-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.va-card { background: rgba(0,0,0,.2); padding: 40px 36px; }
+.va-n { font-family: 'Playfair Display', serif; font-size: 72px; color: rgba(184,150,90,.12); line-height: 1; margin-bottom: 16px; }
+.va-title-sm { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--white); margin-bottom: 12px; }
+.va-body { font-size: 12px; line-height: 1.8; color: rgba(237,232,223,.55); }
+.va-body strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 4px; }
+
+/* ── CLOSE ── */
+#close {
+  background: var(--ink); min-height: 60vh;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  text-align: center; padding: 120px 40px; position: relative; overflow: hidden;
+}
+.close-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(184,150,90,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,150,90,.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.close-content { position: relative; z-index: 2; }
+.close-title { font-family: 'Playfair Display', serif; font-size: clamp(56px, 9vw, 96px); color: var(--white); margin-bottom: 8px; }
+.close-title em { font-style: italic; color: var(--gold-light); }
+.close-sub { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 20px; color: var(--sand); margin-bottom: 48px; }
+.close-meta { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: rgba(196,180,154,.25); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">TERRAIN<sup>™</sup></div>
+  <div class="nav-right">
+    <span class="nav-label">Co-Founder Document</span>
+    <span class="nav-badge">Confidential · June 2026</span>
+  </div>
+</nav>
+
+<!-- ── COVER ── -->
+<section id="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-glow"></div>
+  <div class="cover-content">
+    <div class="cover-eyebrow">Co-Founder Alignment Document · Confidential · Working Draft</div>
+    <div class="cover-title">TERRAIN<em>.</em></div>
+    <div class="cover-sub">Own Your Digital Ecosystem</div>
+    <div class="cover-chips">
+      <span class="chip">Internal Only</span>
+      <span class="chip">Not for Distribution</span>
+      <span class="chip">June 2026</span>
+      <span class="chip">Living Document</span>
+    </div>
+    <div class="cover-kpis">
+      <div class="cover-kpi">
+        <div class="cover-kpi-n">$100M</div>
+        <div class="cover-kpi-l">7-year exit target<br>at 8× EBITDA</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-n">$25M</div>
+        <div class="cover-kpi-l">stable state ARR<br>400 clients</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-n">50%</div>
+        <div class="cover-kpi-l">target NOI margin<br>$12.5M EBITDA</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-signal">
+    <div class="scroll-bar"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ── HOW TO USE ── -->
+<section id="howto">
+  <div class="container">
+    <div class="howto-inner">
+      <div>
+        <div class="eyebrow" style="color:var(--stone)"><span style="background:var(--stone)"></span>How to use this</div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(28px,3.5vw,42px);color:var(--ink);">A living document,<br><em style="font-style:italic;color:var(--gold)">not a pitch deck</em></h2>
+      </div>
+      <div>
+        <p class="howto-body">This is the co-founder alignment document for Terrain. Its purpose is to keep Tim and Kimball anchored to the same vision, structure, and commitments as Terrain is built. It is not a legal agreement, not an investor pitch, and not a final plan. Everything here is subject to honest disagreement and revision. That is the point.</p>
+        <div class="howto-tags">
+          <span class="tag">Vision</span>
+          <span class="tag">Market</span>
+          <span class="tag">Business model</span>
+          <span class="tag">Financials</span>
+          <span class="tag">Ownership</span>
+          <span class="tag">Compensation</span>
+          <span class="tag green">Roadmap</span>
+          <span class="tag green">Commitments</span>
+          <span class="tag muted">Working draft</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VISION ── -->
+<section id="vision" class="section">
+  <div class="container">
+    <div class="vision-inner">
+      <div class="reveal">
+        <div class="eyebrow">01 — Vision</div>
+        <h2 class="vision-title">The one line<br>that <em>matters</em></h2>
+        <div class="vision-quote">Boutique operators need a boutique digital ecosystem. Until Terrain, that did not exist.</div>
+        <p class="body">Terrain builds fully custom, fully integrated digital ecosystems for boutique resort operators across the Western Hemisphere — owned completely by the operator, built specifically for them, and supported by a dedicated long-term concierge.</p>
+      </div>
+      <div class="reveal d2">
+        <div class="vision-stack">
+          <div class="vision-card">
+            <div class="vision-card-label">What we are building</div>
+            <div class="vision-card-text">One unified digital ecosystem per client: <strong>booking engine, communications, operations, analytics, and AI</strong> — all custom-built, all operator-owned, all maintained by a dedicated concierge. No vendor lock-in. No surprise price hikes. No generic tools.</div>
+          </div>
+          <div class="vision-card" style="margin-top:2px;">
+            <div class="vision-card-label">What winning looks like</div>
+            <div class="vision-card-text">In year seven, <strong>400 operators across the Western Hemisphere</strong> are running their businesses on Terrain. The Cliffs at Hocking Hills is the living proof-of-concept that started it all. Terrain exits at <strong>$100M at 8× EBITDA</strong>.</div>
+          </div>
+          <div class="vision-card" style="margin-top:2px;">
+            <div class="vision-card-label">This is not SaaS</div>
+            <div class="vision-card-text">SaaS is built for the 80%. <strong>You are the 20%.</strong> Terrain is built exclusively for operators who refuse generic solutions, own their brand, and invest in differentiation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section id="problem" class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="rule"></div>
+    <div class="problem-inner">
+      <div class="reveal">
+        <div class="eyebrow">02 — The Problem</div>
+        <h2 class="problem-title">Why operators <em>need</em> this</h2>
+        <p class="body" style="margin-bottom:32px;">Boutique operators are running premium hospitality businesses on tools designed for commodity operators — paying $70,000 a year to rent six fragmented systems they hate.</p>
+        <div class="cost-box">
+          <div>
+            <div class="cost-box-label">Annual tech stack — $1M operator, 10 dwellings</div>
+            <div class="cost-box-text"><strong>$28K</strong> Hostaway booking fee · <strong>$6K</strong> Hostaway PM fee · <strong>$3.4K</strong> add-ons · <strong>$3K</strong> Breezeway · <strong>$1K</strong> calls/texts · <strong>$1K</strong> website · <strong>$4K</strong> Mailchimp · <strong>$20K</strong> website contractor</div>
+          </div>
+          <div>
+            <div class="cost-box-n">$70K</div>
+            <div class="cost-box-nl">per year<br>to rent tools<br>they hate</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="pain-stack">
+          <div class="pain">
+            <div class="pain-num">01</div>
+            <div class="pain-text"><strong>They are renters, not owners.</strong> Their digital experience lives on Hostaway, Airbnb, Breezeway. When those platforms change, operators suffer — with no say and no alternative.</div>
+          </div>
+          <div class="pain">
+            <div class="pain-num">02</div>
+            <div class="pain-text"><strong>Fragmented tools, fragmented experience.</strong> Gmail, Hostaway inbox, SMS, spreadsheets — no unified system. Manual work that should be automated.</div>
+          </div>
+          <div class="pain">
+            <div class="pain-num">03</div>
+            <div class="pain-text"><strong>Generic booking engines leave money on the table.</strong> Every redirect loses conversions. No intelligence, no sales logic, no brand expression.</div>
+          </div>
+          <div class="pain">
+            <div class="pain-num">04</div>
+            <div class="pain-text"><strong>Price hikes with no warning.</strong> Hostaway keeps raising rates. Operators have no alternative and no leverage.</div>
+          </div>
+          <div class="pain">
+            <div class="pain-num">05</div>
+            <div class="pain-text"><strong>No unified intelligence.</strong> Guest data, booking patterns, operational history — all trapped in silos. No single question gets a complete answer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARKETING HOOKS ── -->
+<section id="hooks" class="section">
+  <div class="container">
+    <div class="eyebrow eyebrow-lt">03 — Marketing Hooks</div>
+    <h2 class="hooks-title">How we <em>frame</em> the pitch</h2>
+    <p class="hooks-sub">Five core angles for reaching boutique operators where they feel the pain most.</p>
+    <div class="hook-grid">
+      <div class="hook-card reveal">
+        <div class="hook-n">01</div>
+        <div class="hook-title">Boutique operators deserve boutique digital infrastructure</div>
+        <div class="hook-body">The solutions built for the 80% don't work for the 20%. Generic tools for commodity operators cannot serve premium brands. Terrain is built exclusively for operators like you — from the ground up, one property at a time.</div>
+      </div>
+      <div class="hook-card reveal d1">
+        <div class="hook-n">02</div>
+        <div class="hook-title">You own your property. Own your digital ecosystem too.</div>
+        <div class="hook-body">You'd never accept a rented property — you know the quality difference between owner and renter. Yet your entire digital guest experience is rented from Airbnb, Hostaway, and Breezeway. When you rent, you can paint the walls. You cannot knock them down. Terrain gives you ownership.</div>
+      </div>
+      <div class="hook-card reveal d2">
+        <div class="hook-n">03</div>
+        <div class="hook-title">This is not SaaS. You are the 20%.</div>
+        <div class="hook-body">SaaS is created for the 80%. It is built for volume, not for nuance. You are the 20% — the operators who refuse generic solutions, who own their brand, and who invest in what makes them different. Terrain is built for you and no one else.</div>
+      </div>
+      <div class="hook-card reveal d3">
+        <div class="hook-n">04</div>
+        <div class="hook-title">Stop paying $70K/year to rent tools you hate</div>
+        <div class="hook-body">A $1M boutique operator is currently spending $70,000 annually across a fragmented stack of six tools that don't talk to each other. Terrain replaces all of them for $20,000 a year — and you own everything. That's a $50,000 annual saving before a single additional booking.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BUSINESS MODEL ── -->
+<section id="model" class="section">
+  <div class="container">
+    <div class="eyebrow">04 — Business Model</div>
+    <h2 class="model-title">How we make <em>money</em></h2>
+    <p class="body" style="max-width:680px;">Two revenue streams. One clean pricing principle. Simple to explain, simple to defend, contractually locked for clients.</p>
+    <div class="model-grid">
+      <div class="model-card reveal">
+        <div class="model-card-eyebrow">Revenue stream 1</div>
+        <div class="model-card-title">One-Time Build Fee</div>
+        <div class="model-card-body">
+          <strong>Tier 1 — Core: $25,000–$30,000</strong>Booking engine, unified communications, guest management, basic dashboard.
+          <strong style="margin-top:12px;">Tier 2 — Standard: $35,000–$45,000</strong>Core + owner reporting + investor distribution.
+          <strong style="margin-top:12px;">Tier 3 — Premium: $50,000–$65,000</strong>Standard + full PMS, accounting sync, custom KPIs, back-of-house systems.
+          <strong style="margin-top:12px;">Payment terms</strong>Financed over 6–18 months. Every client gets the same premium two-day onsite build experience regardless of tier.
+        </div>
+      </div>
+      <div class="model-card reveal d2">
+        <div class="model-card-eyebrow">Revenue stream 2</div>
+        <div class="model-card-title">Monthly Recurring Fee</div>
+        <div class="model-card-body">
+          <strong>2% of all gross revenue — all channels, flat rate</strong>Applies equally to direct bookings and OTA bookings. No tiered channel pricing. Simple, defensible, aligned with the operator's growth.
+          <strong style="margin-top:12px;">Floor: $2,500/month</strong>Protects margin on smaller operators. Scales naturally with the client as they grow.
+          <strong style="margin-top:12px;">Contractually locked for life of contract</strong>This is our core brand promise against the Hostaway model. Operators sign with confidence. Rate increases only apply to new clients at renewal.
+          <strong style="margin-top:12px;">Contract term: 3 years, renewable</strong>90-day notice required. No surprise price hikes — ever.
+        </div>
+      </div>
+    </div>
+    <div class="model-highlight reveal">
+      <div class="model-highlight-text">For a $1M operator at 2% flat: Terrain costs $20,000/year vs. $70,000 for their current fragmented stack. A $50,000 annual saving — before a single additional booking from the improved engine.</div>
+      <div>
+        <div class="model-highlight-n">$50K</div>
+        <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-top:4px;">avg annual savings</div>
+      </div>
+    </div>
+
+    <div class="rule" style="margin-top:56px;"></div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink);margin-bottom:20px;margin-top:40px;">Ongoing Service Tiers</h3>
+    <p class="body" style="max-width:680px;margin-bottom:8px;">All clients receive the premium two-day onsite build. Ongoing service levels are determined by monthly recurring fee — not build tier.</p>
+    <div class="t-wrap">
+      <table>
+        <thead><tr><th>Tier</th><th>Monthly Fee</th><th>Clients / Concierge</th><th>Change Access</th><th>Additional Changes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Tier 1 — Signature</strong></td><td>$4,000+/mo</td><td>Max 10–12</td><td>Unlimited — addressed as fast as possible</td><td>Included</td></tr>
+          <tr><td><strong>Tier 2 — Premier</strong></td><td>$2,500–$4,000/mo</td><td>Max 20–25</td><td>4 proactive touchpoints/year</td><td>Available at reasonable fee</td></tr>
+          <tr><td><strong>Tier 3 — Core</strong></td><td>$2,500 floor</td><td>Max 40–45</td><td>1 touchpoint/year</td><td>Available at reasonable fee</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body" style="margin-top:16px;font-size:12px;color:var(--stone);">All tiers include: 24/7 emergency tech support · Self-service capability (pricing, photos, specials, messaging rules) · Dedicated concierge relationship</p>
+  </div>
+</section>
+
+<!-- ── FINANCIALS ── -->
+<section id="financials" class="section">
+  <div class="container">
+    <div class="eyebrow eyebrow-lt">05 — Financial Model</div>
+    <h2 class="fin-title">Stable state at <em>400 clients</em></h2>
+    <p class="body body-lt" style="max-width:680px;">Year 7 target. USA boutique operators dominant (70%), Western Hemisphere expansion (30%). 20% SAM penetration of a 2,000-operator serviceable addressable market within a 6,000-operator TAM.</p>
+    <div class="fin-kpis">
+      <div class="fin-kpi">
+        <div class="fin-kpi-n">400</div>
+        <div class="fin-kpi-l">total clients<br>at stable state</div>
+      </div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-n">$25M</div>
+        <div class="fin-kpi-l">annual recurring<br>revenue</div>
+      </div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-n">$12.5M</div>
+        <div class="fin-kpi-l">NOI / EBITDA<br>50% margin</div>
+      </div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-n">$100M</div>
+        <div class="fin-kpi-l">exit valuation<br>at 8× EBITDA</div>
+      </div>
+    </div>
+
+    <div class="fin-grid">
+      <div class="reveal">
+        <div class="fin-section-title">Client <span>tier distribution</span></div>
+        <div class="t-wrap">
+          <table class="t-dark">
+            <thead><tr><th>Tier</th><th>Clients</th><th>Avg Operator Revenue</th><th>Monthly Fee (2%)</th><th>Annual Recurring</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Tier 1 — Signature</strong></td><td>20</td><td>$12M</td><td>$20,000</td><td>$4,800,000</td></tr>
+              <tr><td><strong>Tier 2 — Premier</strong></td><td>70</td><td>$6M</td><td>$10,000</td><td>$8,400,000</td></tr>
+              <tr><td><strong>Tier 3 — Core</strong></td><td>210</td><td>$2.5M</td><td>$4,167</td><td>$10,500,000</td></tr>
+              <tr><td><strong>Tier 4 — Founder</strong></td><td>100</td><td>$1M</td><td>$1,667</td><td>$2,000,000</td></tr>
+              <tr class="t-total"><td><strong>Total ARR</strong></td><td><strong>400</strong></td><td></td><td></td><td><strong>$25,000,000</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="fin-section-title">OpEx <span>breakdown</span></div>
+        <div class="t-wrap">
+          <table class="t-dark">
+            <thead><tr><th>Category</th><th>Annual Cost</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Salaries (~42 headcount)</strong></td><td>$8,500,000</td></tr>
+              <tr><td>Infrastructure / hosting</td><td>$700,000</td></tr>
+              <tr><td>Tools ($100/mo × 400 clients)</td><td>$480,000</td></tr>
+              <tr><td>Travel (builds + visits + retreats)</td><td>$650,000</td></tr>
+              <tr><td>Legal, insurance, compliance</td><td>$250,000</td></tr>
+              <tr><td>Payment processing</td><td>$180,000</td></tr>
+              <tr><td>Misc / contingency / unforeseen</td><td>$740,000</td></tr>
+              <tr class="t-total"><td><strong>Total OpEx</strong></td><td><strong>$12,500,000</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2px;">
+      <div class="fin-kpi" style="background:rgba(255,255,255,.06);">
+        <div class="fin-kpi-n">$25M</div>
+        <div class="fin-kpi-l">total revenue</div>
+      </div>
+      <div class="fin-kpi" style="background:rgba(255,255,255,.06);">
+        <div class="fin-kpi-n">$12.5M</div>
+        <div class="fin-kpi-l">total OpEx</div>
+      </div>
+      <div class="fin-kpi" style="background:rgba(184,150,90,.12);">
+        <div class="fin-kpi-n" style="color:var(--gold-light);">$12.5M</div>
+        <div class="fin-kpi-l">NOI — 50% margin</div>
+      </div>
+    </div>
+
+    <div class="rule rule-lt" style="margin-top:48px;"></div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:20px;margin-top:40px;">Exit Valuation</h3>
+    <div class="t-wrap">
+      <table class="t-dark">
+        <thead><tr><th>EBITDA Multiple</th><th>Valuation</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>8× EBITDA</td><td><strong>$100,000,000</strong></td><td>Base case — bootstrapped, profitable SaaS</td></tr>
+          <tr><td>9× EBITDA</td><td><strong>$112,500,000</strong></td><td>Strong growth trajectory at exit</td></tr>
+          <tr><td>10× EBITDA</td><td><strong>$125,000,000</strong></td><td>Strategic buyer — Hostaway, Guesty, PE roll-up</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── OWNERSHIP ── -->
+<section id="ownership" class="section">
+  <div class="container">
+    <div class="eyebrow eyebrow-lt">06 — Ownership Structure</div>
+    <h2 class="own-title">Who owns <em>what</em></h2>
+    <p class="body body-lt" style="max-width:680px;">Three parties. Equal economic representation. Voting rights belong to Tim and Kimball only. The Cliffs LLC participates economically but holds no governance authority.</p>
+    <div class="own-cards">
+      <div class="own-card tim reveal">
+        <div class="own-pct">40%</div>
+        <div class="own-name">Tim</div>
+        <div class="own-badge">Voting member</div>
+        <div class="own-exit-n">$40M</div>
+        <div class="own-exit-l">at $100M exit</div>
+        <div class="own-desc">CEO and primary builder. Full-time commitment. Irreplaceable technical foundation. Day-to-day operational authority. Equal voting power with Kimball on all major decisions.</div>
+      </div>
+      <div class="own-card kim reveal d1">
+        <div class="own-pct">40%</div>
+        <div class="own-name">Kimball + Christine</div>
+        <div class="own-badge">Voting member</div>
+        <div class="own-exit-n">$40M</div>
+        <div class="own-exit-l">at $100M exit</div>
+        <div class="own-desc">Co-founder, visionary, industry expert, face of Terrain. Sales driver and distribution engine. 5–10 hours/week strategic contribution. Equal voting power with Tim on all major decisions.</div>
+      </div>
+      <div class="own-card cliffs reveal d2">
+        <div class="own-pct">20%</div>
+        <div class="own-name">The Cliffs LLC</div>
+        <div class="own-badge non">Non-voting member</div>
+        <div class="own-exit-n">$20M</div>
+        <div class="own-exit-l">at $100M exit</div>
+        <div class="own-desc">Brand anchor, proof-of-concept, distribution engine. 800K Instagram followers and 90K email list. Economic participation only — no voting rights. Exit proceeds flow to Cliffs investors as bonus upside.</div>
+      </div>
+    </div>
+    <div class="own-note reveal">
+      <strong>Transparency note:</strong> Kimball controls 100% of The Cliffs LLC operating decisions. Combined with his personal 40% voting equity, his effective governance influence is significant. This is acknowledged and transparent to both parties. Tim holds full operational authority as CEO. Both Tim and Kimball hold equal voting authority on major strategic decisions: company sale, equity changes, major pivots, and capital allocation.
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPENSATION ── -->
+<section id="comp" class="section">
+  <div class="container">
+    <div class="eyebrow eyebrow-lt">07 — Compensation</div>
+    <h2 class="comp-title">How Tim gets <em>paid</em></h2>
+    <p class="body body-lt" style="max-width:680px;">Tim's equity and his compensation are entirely separate conversations. Equity is his co-founder stake — long-term wealth. Compensation is fair market pay for the work he does every day.</p>
+    <div class="comp-stack">
+      <div class="comp-row reveal">
+        <div class="comp-label">
+          <strong>Phase 1 — Part-time (now through full-time trigger)</strong>
+          Tim receives 50% of total monthly revenue — recurring fees plus build fee payments — as direct compensation. This is in addition to any distributions; salary and distributions are separate and cumulative. The remaining 50% is retained by the company as operating reserves and capital, and may only be distributed upon mutual written agreement of both founding parties.
+        </div>
+        <div class="comp-val">50% of revenue</div>
+      </div>
+      <div class="comp-row reveal d1">
+        <div class="comp-label">
+          <strong>Full-time trigger</strong>
+          When Tim's 50% revenue share annualizes to $250,000 per year — approximately $20,833/month to Tim, requiring ~$41,667/month in total Terrain revenue. At ~$5,000/client average (recurring + build financing), this triggers at roughly 8–9 clients. Happens organically, not arbitrarily.
+        </div>
+        <div class="comp-val">~8–9 clients</div>
+      </div>
+      <div class="comp-row highlight reveal d2">
+        <div class="comp-label">
+          <strong>Full-time salary — $250K minimum, not a ceiling</strong>
+          Once the trigger is reached, salary is set at $250,000 per year as a guaranteed floor regardless of how early it happens and regardless of temporary revenue fluctuation. This salary is in addition to any profit distributions — not a substitute for them. As the business scales, salary is subject to upward adjustment by mutual agreement of both parties.
+        </div>
+        <div class="comp-val">$250K min/year</div>
+      </div>
+      <div class="comp-row reveal d3">
+        <div class="comp-label">
+          <strong>Profit distributions</strong>
+          Distributions are separate from and in addition to Tim's salary. Net profits available for distribution are allocated proportionally per ownership stake: Tim 40%, Kimball + Christine 40%, The Cliffs LLC 20%. Distributions require mutual agreement of both voting parties and are paid on a cadence to be agreed (quarterly recommended).
+        </div>
+        <div class="comp-val">40 / 40 / 20</div>
+      </div>
+    </div>
+    <div class="comp-note reveal">
+      <strong>Why this structure works:</strong> Tim sees real money from day one — not a promise of future payment. The 50% revenue model protects him in early months when revenue is small and rewards him immediately as it grows. His salary is a guaranteed floor, not a cap — it rises with the business. Salary and distributions are additive, not interchangeable. The remaining 50% of early revenue stays in the company as protected reserves, distributed only when both parties agree. Equity upside compounds independently of all compensation. Tim is not taking a pay cut in exchange for equity — he is being paid fairly for his work <em>and</em> building long-term wealth.
+    </div>
+  </div>
+</section>
+
+<!-- ── ROADMAP ── -->
+<section id="roadmap" class="section">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--stone);"><span style="background:var(--stone)"></span>08 — Go-to-Market Roadmap</div>
+    <h2 class="roadmap-title">The path to <em>400 clients</em></h2>
+    <p class="body" style="max-width:680px;margin-bottom:8px;">Seven years from prototype to exit. USA dominant in the early years, Western Hemisphere expansion from Year 4. Two buyer value-adds deliberately untouched.</p>
+    <div class="roadmap-phases">
+
+      <div class="phase p1 reveal">
+        <div class="phase-left">
+          <div class="phase-period">Sept–Dec 2026</div>
+          <div class="phase-name">Foundation</div>
+          <div class="phase-clients">Target: <span>0</span> paying clients</div>
+        </div>
+        <div class="phase-right">
+          <div class="phase-items">
+            <div class="phase-item"><strong>The Cliffs prototype goes live September 1</strong> — flagship proof-of-concept fully operational</div>
+            <div class="phase-item">Ambassador strategy activated — conversations with Isaac French, Bolt Farm, Robuilt, Ben Wolfe</div>
+            <div class="phase-item">One free build for key influencer (Isaac French or Bolt Farm — TBD)</div>
+            <div class="phase-item">Business plan and co-founder structure finalized with Tim</div>
+            <div class="phase-item">Tim: nights/weekends + one flexible weekday · Kimball: 5–10 hours/week</div>
+          </div>
+          <div class="phase-metrics">
+            <div><div class="phase-metric-n">$0</div><div class="phase-metric-l">revenue</div></div>
+            <div><div class="phase-metric-n">2</div><div class="phase-metric-l">team members</div></div>
+            <div><div class="phase-metric-n">1</div><div class="phase-metric-l">free build</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase p1 reveal d1" style="margin-top:2px;">
+        <div class="phase-left">
+          <div class="phase-period">Jan–Dec 2027</div>
+          <div class="phase-name">Proof</div>
+          <div class="phase-clients">Target: <span>12</span> paying clients</div>
+        </div>
+        <div class="phase-right">
+          <div class="phase-items">
+            <div class="phase-item"><strong>First 12 paying clients</strong> — Tim and Kimball only, no hires yet</div>
+            <div class="phase-item">Tim's 50% revenue share hits $250K trigger at ~clients 8–9 — salary locks, full-time transition begins</div>
+            <div class="phase-item">Kimball keynote strategy activates — target 2 STR conferences (VRMA, STR Wealth, Hostcon)</div>
+            <div class="phase-item">Product-market fit validated · Repeatable build process established</div>
+            <div class="phase-item">Case studies from The Cliffs + ambassador build deployed across Instagram and email</div>
+          </div>
+          <div class="phase-metrics">
+            <div><div class="phase-metric-n">$720K</div><div class="phase-metric-l">est. revenue</div></div>
+            <div><div class="phase-metric-n">2</div><div class="phase-metric-l">team members</div></div>
+            <div><div class="phase-metric-n">12</div><div class="phase-metric-l">clients</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase p2 reveal" style="margin-top:2px;">
+        <div class="phase-left">
+          <div class="phase-period">2028–2029</div>
+          <div class="phase-name">Traction</div>
+          <div class="phase-clients">Target: <span>80</span> clients by end 2029</div>
+        </div>
+        <div class="phase-right">
+          <div class="phase-items">
+            <div class="phase-item"><strong>Tim goes full-time</strong> as CEO, Q1 2028</div>
+            <div class="phase-item">First hires: 2 concierges + 1 builder (~Q2–Q3 2028)</div>
+            <div class="phase-item">Sales hire added by late 2028 — inbound-heavy given The Cliffs distribution</div>
+            <div class="phase-item">Kimball remains part-time strategic, 5–10 hours/week — face, closer, speaker</div>
+            <div class="phase-item">Western Hemisphere outreach begins (late 2028–early 2029)</div>
+            <div class="phase-item">2 conferences/year keynote cadence — 20–30 qualified leads per event</div>
+          </div>
+          <div class="phase-metrics">
+            <div><div class="phase-metric-n">$3M–$4M</div><div class="phase-metric-l">est. revenue</div></div>
+            <div><div class="phase-metric-n">8–12</div><div class="phase-metric-l">team members</div></div>
+            <div><div class="phase-metric-n">80</div><div class="phase-metric-l">clients</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase p3 reveal" style="margin-top:2px;">
+        <div class="phase-left">
+          <div class="phase-period">2030–2032</div>
+          <div class="phase-name">Scale</div>
+          <div class="phase-clients">Target: <span>250</span> clients by end 2032</div>
+        </div>
+        <div class="phase-right">
+          <div class="phase-items">
+            <div class="phase-item"><strong>Full leadership team hired</strong> — COO, CMO, VP Engineering, Head of Sales</div>
+            <div class="phase-item">Concierge tier structure fully operational (Tier 1, 2, 3 service levels)</div>
+            <div class="phase-item">Western Hemisphere expansion activated — Canada, Mexico, Caribbean, Central/South America</div>
+            <div class="phase-item">Productized build library at full efficiency — 30 builds/builder/year with heavy AI leverage</div>
+            <div class="phase-item">50% NOI margin locked — platform maturity and template library driving efficiency</div>
+            <div class="phase-item">Property manager segment and full international expansion deliberately held for buyer</div>
+          </div>
+          <div class="phase-metrics">
+            <div><div class="phase-metric-n">$12M–$18M</div><div class="phase-metric-l">est. revenue</div></div>
+            <div><div class="phase-metric-n">25–35</div><div class="phase-metric-l">team members</div></div>
+            <div><div class="phase-metric-n">250</div><div class="phase-metric-l">clients</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase p4 reveal" style="margin-top:2px;">
+        <div class="phase-left">
+          <div class="phase-period">2033–2034</div>
+          <div class="phase-name">Exit Ready</div>
+          <div class="phase-clients">Target: <span>400</span> clients</div>
+        </div>
+        <div class="phase-right">
+          <div class="phase-items">
+            <div class="phase-item"><strong>$25M ARR · $12.5M NOI · 50% margin</strong> — all targets met</div>
+            <div class="phase-item">Western Hemisphere fully activated — USA dominant (70%), WH expansion (30%)</div>
+            <div class="phase-item">Two clear buyer value-adds intact: PM segment untouched, full international expansion available</div>
+            <div class="phase-item">Exit conversations begin with strategic acquirers — Hostaway, Guesty, PE roll-up, family office</div>
+            <div class="phase-item">~42 headcount, fully remote, two company retreats annually</div>
+            <div class="phase-item">Target exit: $100M at 8× EBITDA</div>
+          </div>
+          <div class="phase-metrics">
+            <div><div class="phase-metric-n">$25M</div><div class="phase-metric-l">revenue</div></div>
+            <div><div class="phase-metric-n">~42</div><div class="phase-metric-l">team members</div></div>
+            <div><div class="phase-metric-n">$100M</div><div class="phase-metric-l">exit target</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOUNDING COMMITMENTS ── -->
+<section id="commitments" class="section">
+  <div class="container">
+    <div class="eyebrow">09 — Founding Commitments</div>
+    <h2 class="comm-title">What each of us <em>commits to</em></h2>
+    <p class="body" style="max-width:680px;">This is the most important section. Not the financials, not the org chart — this. What are we actually promising each other? These commitments are the foundation of the partnership.</p>
+    <div class="comm-grid">
+      <div class="comm-card reveal">
+        <div class="comm-who">Tim — CEO & Co-Founder</div>
+        <div class="comm-items">
+          <div class="comm-item">Primary architect and builder of the Terrain platform</div>
+          <div class="comm-item">CEO — day-to-day operational authority and decision-making</div>
+          <div class="comm-item">All technical architecture decisions are Tim's domain</div>
+          <div class="comm-item">Nights/weekends + one flexible weekday now; full-time at $250K trigger</div>
+          <div class="comm-item">Personal concierge for first clients through onboarding</div>
+          <div class="comm-item">Builds The Cliffs ecosystem as Terrain's flagship proof-of-concept</div>
+        </div>
+      </div>
+      <div class="comm-card reveal d1">
+        <div class="comm-who">Kimball + Christine — Co-Founder</div>
+        <div class="comm-items">
+          <div class="comm-item">5–10 hours/week strategic direction and vision</div>
+          <div class="comm-item">Face of Terrain — public speaker, closer, relationship builder</div>
+          <div class="comm-item">The Cliffs as living proof-of-concept and flagship case study</div>
+          <div class="comm-item">Distribution engine — 800K Instagram + 90K email list access</div>
+          <div class="comm-item">Conference keynote strategy — 2+ events per year from 2027</div>
+          <div class="comm-item">Ambassador network activation — Isaac French, Bolt Farm, Robuilt, Ben Wolfe</div>
+        </div>
+      </div>
+      <div class="comm-card reveal d2">
+        <div class="comm-who">The Cliffs LLC — Non-Voting Member</div>
+        <div class="comm-items">
+          <div class="comm-item">Brand anchor and flagship client — the proof that Terrain works</div>
+          <div class="comm-item">Audience access for Terrain marketing and case studies</div>
+          <div class="comm-item">20% non-voting economic stake — no governance role</div>
+          <div class="comm-item">Receives Terrain build at no cost (contribution in kind)</div>
+          <div class="comm-item">Exit proceeds flow as upside to Cliffs investors (~$20M at $100M exit)</div>
+          <div class="comm-item">Kimball controls Cliffs LLC decisions unilaterally — acknowledged by both parties</div>
+        </div>
+      </div>
+    </div>
+    <div class="comm-note reveal">
+      <strong>For Tim to review:</strong> Does this accurately capture your commitment and your expectations of this partnership? Add, remove, or push back on anything here before we finalize. This document exists to create alignment, not to impose it.
+    </div>
+  </div>
+</section>
+
+<!-- ── BUYER VALUE-ADDS ── -->
+<section id="valueadds" class="section">
+  <div class="container">
+    <div class="eyebrow eyebrow-lt">10 — Buyer Value-Adds</div>
+    <h2 class="va-title">Two levers we leave <em>for the buyer</em></h2>
+    <p class="va-sub">Terrain exits as a focused, proven business. We deliberately leave two major expansion opportunities untouched — giving any acquirer immediate, de-risked growth playbooks.</p>
+    <div class="va-grid">
+      <div class="va-card reveal">
+        <div class="va-n">01</div>
+        <div class="va-title-sm">Property Management Companies</div>
+        <div class="va-body">
+          <strong>What it is</strong>Professional PM companies managing 25–150+ units. Different buyer profile, different sales motion, same core platform.
+          <strong style="margin-top:12px;">Why we leave it</strong>Serving PM companies requires different concierge workflows, different build scope, and different pricing. Adding it during the Terrain growth phase risks diluting the boutique resort brand. A buyer with capital can activate this segment immediately post-acquisition.
+          <strong style="margin-top:12px;">Estimated TAM</strong>3,000–5,000 PM companies in the Western Hemisphere alone. Potential to double the client base with no product development required.
+        </div>
+      </div>
+      <div class="va-card reveal d2">
+        <div class="va-n">02</div>
+        <div class="va-title-sm">Full International Expansion</div>
+        <div class="va-body">
+          <strong>What it is</strong>Europe, APAC, Middle East, Africa — boutique resort operators globally who face the same fragmented tool problem Terrain solves.
+          <strong style="margin-top:12px;">Why we leave it</strong>International expansion beyond the Western Hemisphere introduces regulatory complexity, language requirements, and significantly higher operational overhead. Terrain's 7-year plan is focused on the English-speaking Western Hemisphere. Full international is a post-exit opportunity.
+          <strong style="margin-top:12px;">Estimated TAM expansion</strong>Global boutique resort market is 3–5× the Western Hemisphere market. A strategic acquirer with global infrastructure could deploy Terrain internationally within 12–18 months.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLOSE ── -->
+<section id="close">
+  <div class="close-grid"></div>
+  <div class="close-content">
+    <div class="close-title">TERRAIN<em>.</em></div>
+    <div class="close-sub">Own Your Digital Ecosystem</div>
+    <div class="close-meta">Confidential · Co-Founder Document · Not for Distribution · June 2026</div>
+  </div>
+</section>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
